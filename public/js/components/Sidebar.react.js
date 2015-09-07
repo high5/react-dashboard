@@ -9,6 +9,8 @@ var Sidebar = React.createClass({
     return null;
   },
 
+
+
   /**
    * @return {object}
    */
@@ -16,8 +18,8 @@ var Sidebar = React.createClass({
     return (
       <div className="col-sm-3 col-md-2 sidebar">
         <ul className="nav nav-sidebar">
-          <li className="active"><a href="#">Overview <span className="sr-only">(current)</span></a></li>
-          <li><a href="#">Reports</a></li>
+          <li  className="active"><a id="hoge1" onClick={this._onClick} href="#">Overview <span className="sr-only">(current)</span></a></li>
+          <li  ><a id="moge2"  onClick={this._onClick} href="#">Reports</a></li>
           <li><a href="#">Analytics</a></li>
           <li><a href="#">Export</a></li>
         </ul>
@@ -39,8 +41,10 @@ var Sidebar = React.createClass({
 
   /**
    */
-  _onChange: function() {
+  _onClick: function(event) {
+    alert(event.target.id);
   }
+
 
 });
 
