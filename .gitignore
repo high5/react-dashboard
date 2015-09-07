@@ -18,3 +18,7 @@ composer.phar
 #windows
 Thumbs.db
 .htaccess
+/vendor
+/node_modules
+.env
+composer.lock
