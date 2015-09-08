@@ -37,18 +37,12 @@ var App = React.createClass({
    */
   render: function() {
 
-    //alert(this.state.sidebarMenuList);
-    //alert("moge");
 
     var menu = "";
-    //var content = "";
-
 
     for (var id in this.state.sidebarMenuList) {
       if (this.state.sidebarMenuList[id]['active'] == true) {
         menu = this.state.sidebarMenuList[id];
-        //title = this.state.sidebarMenuList[id]['title'];
-        //content = this.state.sidebarMenuList[id]['content'];
       }
     }
 
