@@ -7,12 +7,23 @@ var Sidebar = require('./Sidebar.react');
 
 var Main = require('./Main.react');
 
-window.$ = window.jQuery = require('jquery');
+var Store = require('../stores/Store');
+
+
+
+function getState() {
+  return {
+    sidebarMenuList: Store.getSidebarMenuList(),
+    hoge: "hoge",
+  };
+}
+
+
 
 var App = React.createClass({
 
   getInitialState: function() {
-    return null;
+    return getState();
   },
 
   componentDidMount: function() {
@@ -25,18 +36,34 @@ var App = React.createClass({
    * @return {object}
    */
   render: function() {
+
+    //alert(this.state.sidebarMenuList);
+    //alert("moge");
+
+    var menu = "";
+    //var content = "";
+
+
+    for (var id in this.state.sidebarMenuList) {
+      if (this.state.sidebarMenuList[id]['active'] == true) {
+        menu = this.state.sidebarMenuList[id];
+        //title = this.state.sidebarMenuList[id]['title'];
+        //content = this.state.sidebarMenuList[id]['content'];
+      }
+    }
+
     return (
       <div className="row">
-        <Sidebar  />
-        <Main />
+        <Sidebar
+          menuList={this.state.sidebarMenuList}
+        />
+        <Main
+          menu={menu}
+        />
       </div>
     );
-  },
-
-  /**
-   */
-  _onChange: function() {
   }
+
 
 });
 

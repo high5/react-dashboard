@@ -2,47 +2,51 @@
  * Created on 15/09/07.
  */
 var React = require('react');
+var SidebarMenu = require('./SidebarMenu.react');
+var Store = require('../stores/Store');
+
 
 var Sidebar = React.createClass({
 
   getInitialState: function() {
-    return null;
+    return {
+      menuList: this.props.menuList
+    };
   },
 
-
+  componentDidMount: function() {
+    Store.addChangeListener(this._onChange);
+  },
 
   /**
    * @return {object}
    */
   render: function() {
+
+    var stateMenuList = this.state.menuList;
+    var menuList = [];
+
+
+    for (var key in stateMenuList) {
+      menuList.push(<SidebarMenu key={key} menu={stateMenuList[key]} />);
+    }
+
     return (
       <div className="col-sm-3 col-md-2 sidebar">
-        <ul className="nav nav-sidebar">
-          <li  className="active"><a id="hoge1" onClick={this._onClick} href="#">Overview <span className="sr-only">(current)</span></a></li>
-          <li  ><a id="moge2"  onClick={this._onClick} href="#">Reports</a></li>
-          <li><a href="#">Analytics</a></li>
-          <li><a href="#">Export</a></li>
-        </ul>
-        <ul className="nav nav-sidebar">
-          <li><a href="">Nav item</a></li>
-          <li><a href="">Nav item again</a></li>
-          <li><a href="">One more nav</a></li>
-          <li><a href="">Another nav item</a></li>
-          <li><a href="">More navigation</a></li>
-        </ul>
-        <ul className="nav nav-sidebar">
-          <li><a href="">Nav item again</a></li>
-          <li><a href="">One more nav</a></li>
-          <li><a href="">Another nav item</a></li>
-        </ul>
+        <ul className="nav nav-sidebar">{menuList}</ul>
       </div>
     );
   },
 
   /**
+   * Event handler for 'change' events coming from the TodoStore
    */
-  _onClick: function(event) {
-    alert(event.target.id);
+  _onChange: function() {
+    this.setState(
+      {
+        menuList: Store.getSidebarMenuList()
+      }
+    );
   }
 
 
