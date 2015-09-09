@@ -13,8 +13,7 @@ var Store = require('../stores/Store');
 
 function getState() {
   return {
-    sidebarMenuList: Store.getSidebarMenuList(),
-    hoge: "hoge",
+    sidebarMenuList: Store.getSidebarMenuList()
   };
 }
 
@@ -23,6 +22,12 @@ function getState() {
 var App = React.createClass({
 
   getInitialState: function() {
+
+    if (location.hash) {
+      var id = Store.findIdByHash(location.hash)
+      Store.activateSidebarMenu(id);
+    }
+
     return getState();
   },
 

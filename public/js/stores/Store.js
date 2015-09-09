@@ -50,30 +50,34 @@ var _sidebarMenuList = {
   1:{
     "id": 1,
     "title":"Overview",
+    "hash":"overview",
     "content":"content1",
     "active":true
   },
   2:{
     "id": 2,
     "title":"Reports",
+    "hash":"reports",
     "content":"content2",
     "active":false
   },
   3:{
     "id": 3,
     "title":"Analytics",
+    "hash":"analytics",
     "content":"content3",
     "active":false
   },
   4:{
     "id": 4,
     "title":"Export",
+    "hash":"export",
     "content":"content4",
     "active":false
   }
 };
 
-
+/*
 function activateSidebarMenu(id) {
   for (var idx in _sidebarMenuList) {
     if (idx == id) {
@@ -83,6 +87,7 @@ function activateSidebarMenu(id) {
     }
   }
 }
+*/
 
 
 var Store = assign({}, EventEmitter.prototype, {
@@ -93,7 +98,24 @@ var Store = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getSidebarMenuList: function() {
+    /*
+    var hash = location.hash;
 
+    if (hash) {
+      var hashId = hash.replace("#", "");
+      console.log(hashId);
+      console.log(hash);
+      for (var idx in _sidebarMenuList) {
+        if ("#" + idx == hash) {
+
+        }
+      }
+    }
+    */
+
+
+    //console.log(location.hash);
+    //console.log("hoge");
     /*
     _sidebarMenuList = [
       {
@@ -122,20 +144,23 @@ var Store = assign({}, EventEmitter.prototype, {
     return _sidebarMenuList;
   },
 
-  /*
   activateSidebarMenu: function(id) {
-    //this.emit(CHANGE_EVENT);
-
-    for (var id in _todos) {
-      if (!_todos[id].complete) {
-        return false;
+    for (var idx in _sidebarMenuList) {
+      if (idx == id) {
+        _sidebarMenuList[idx]['active'] = true;
+      } else {
+        _sidebarMenuList[idx]['active'] = false;
       }
     }
-
-
-
   },
-  */
+  findIdByHash: function(hash) {
+    for (var id in _sidebarMenuList) {
+      if (_sidebarMenuList[id]['hash'] == hash.replace("#", "")) {
+        return id;
+        break;
+      }
+    }
+  },
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -161,7 +186,7 @@ AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
     case Constants.CLICK_SIDEBAR_MENU:
-      activateSidebarMenu(action.id);
+      Store.activateSidebarMenu(action.id);
       Store.emitChange();
       break;
     default:

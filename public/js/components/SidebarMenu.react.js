@@ -18,14 +18,17 @@ var SidebarMenu = React.createClass({
    */
   render: function() {
     var menu = this.state.menu;
+
+    var hash = "#" + menu.hash;
+
     if (menu.active) {
       return (
-        <li className="active"><a onClick={this._onClick}  href="#">{menu.title}<span className="sr-only">(current)</span></a></li>
+        <li className="active"><a onClick={this._onClick}  href={hash}>{menu.title}<span className="sr-only">(current)</span></a></li>
       );
 
     } else {
       return (
-        <li><a onClick={this._onClick} href="#">{menu.title}</a></li>
+        <li><a onClick={this._onClick} href={hash}>{menu.title}</a></li>
       );
     }
 
